@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Pogoda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/mystyle.css}">
+</head>
+<body class="center divstyle">
+    <h1>Sprawdzanie pogody</h1>
+    <form style="margin-top: 50px" class="input-group mb-3" th:action="@{'/'}" method="post">
+        <span class="input-group-text" id="location">Podaj miasto</span>
+        <input type="text" name="location" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="submit" class="btn btn-primary" value="Wyślij"/>
+    </form>
+
+    <div th:if="${weather} ne null">
+        <img th:src="${weather.icon}">
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Miasto
+                <span class="badge bg-primary rounded-pill" th:text="${weather.city}">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Kraj
+                <span class="badge bg-primary rounded-pill" th:text="${weather.country}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Opis ogólny
+                <span class="badge bg-primary rounded-pill" th:text="${weather.description}">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Temperatura
+                <span class="badge bg-primary rounded-pill" th:text="|${weather.temp}°C|">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Ciśnienie
+                <span class="badge bg-primary rounded-pill" th:text="|${weather.pressure}hPa|">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Wilgotność powietrza
+                <span class="badge bg-primary rounded-pill" th:text="|${weather.humidity}%|">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Prędkość wiatru
+                <span class="badge bg-primary rounded-pill" th:text="|${weather.windSpeed}m/s|">1</span>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="list-group" th:if="${weather} eq null">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Nie znaleziono podanej lokalizacji
+        </li>
+    </ul>
+
+</body>
+</html>
